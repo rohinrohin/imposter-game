@@ -16,9 +16,9 @@ export function generateDeterministicGame(config: DeterministicGameConfig): Game
   // Generate the base game state deterministically
   const baseGameState = createGameState(config.players, config.round, config.category)
   
-  // Deterministic impostor selection based on game code + player names
-  const playerSeed = `${config.gameCode}-players-${config.playerNames.sort().join('-')}`
-  const impostorRng = seededRandFromKey(playerSeed)
+  // Deterministic impostor selection based on game code + round number
+  const impostorSeed = `${config.gameCode}-impostor-${config.round}`
+  const impostorRng = seededRandFromKey(impostorSeed)
   const impostorIndex = numberFromRng(impostorRng, config.players)
   
   // Deterministic starting player
@@ -46,14 +46,14 @@ export function getDeterministicPlayerId(gameCode: string, playerName: string): 
 /**
  * Check if a player is the impostor deterministically
  */
-export function isPlayerImpostor(gameCode: string, playerName: string, allPlayerNames: string[]): boolean {
+export function isPlayerImpostor(gameCode: string, playerName: string, allPlayerNames: string[], round: number): boolean {
   const sortedNames = [...allPlayerNames].sort()
   const playerIndex = sortedNames.indexOf(playerName)
   
   if (playerIndex === -1) return false
   
-  const playerSeed = `${gameCode}-players-${sortedNames.join('-')}`
-  const impostorRng = seededRandFromKey(playerSeed)
+  const impostorSeed = `${gameCode}-impostor-${round}`
+  const impostorRng = seededRandFromKey(impostorSeed)
   const impostorIndex = numberFromRng(impostorRng, sortedNames.length)
   
   return playerIndex === impostorIndex
