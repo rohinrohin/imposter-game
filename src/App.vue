@@ -5,6 +5,7 @@
       v-if="showModeSelection"
       @select-mode="handleModeSelection"
       @joined-game="handleJoinedGame"
+      @start-local-game="handleStartLocalGame"
     />
     
     <div class="mx-auto max-w-4xl space-y-6">
@@ -65,70 +66,43 @@
         </Card>
       </div>
 
-      <!-- Game Setup (hidden in multiplayer mode with smart codes) -->
-      <Card v-if="shouldShowGameSetup" class="fade-in">
+      <!-- Game Actions (shown when game is configured) -->
+      <Card v-if="!showModeSelection" class="fade-in">
         <CardHeader>
           <CardTitle class="flex items-center space-x-2">
             <Users class="h-5 w-5" />
-            <span>Game Setup</span>
+            <span>Game Actions</span>
           </CardTitle>
         </CardHeader>
         <CardContent class="space-y-6">
-          <!-- Players -->
-          <div class="space-y-2">
-            <Label class="text-base font-medium">Number of Players</Label>
-            <div class="flex items-center space-x-4">
-              <Input
-                v-model.number="gameState.players"
-                type="number"
-                min="3"
-                max="20"
-                class="w-20"
-                @input="updateGameState"
-              />
-              <span class="text-sm text-gray-600">
-                ({{ gameState.players }} players: {{ gameState.players - 1 }} know the word, 1 impostor)
-              </span>
-            </div>
-          </div>
-
-          <!-- Category -->
-          <div class="space-y-2">
-            <Label class="text-base font-medium">Category</Label>
-            <Select v-model="gameState.category" @update:model-value="updateGameState">
-              <option v-for="cat in ALL_CATEGORIES" :key="cat" :value="cat">
-                {{ cat }} ({{ WORD_BANK[cat].length }} words)
-              </option>
-            </Select>
-          </div>
-
-          <!-- Round -->
-          <div class="space-y-2">
-            <Label class="text-base font-medium">Round</Label>
-            <div class="flex items-center space-x-4">
-              <Input
-                v-model.number="gameState.round"
-                type="number"
-                min="1"
-                class="w-20"
-                @input="updateGameState"
-              />
-              <Button variant="secondary" @click="nextRound" class="flex items-center space-x-2">
-                <RotateCcw class="h-4 w-4" />
-                <span>Next Round</span>
-              </Button>
-            </div>
-          </div>
-
           <!-- Game Info -->
           <div class="bg-blue-50 rounded-lg p-4 space-y-2">
-            <div class="flex items-center justify-between">
-              <span class="font-medium">Round:</span>
-              <span class="text-blue-600 font-bold">{{ gameState.round }}</span>
-            </div>
-            <div class="flex items-center justify-between">
-              <span class="font-medium">Starting Player:</span>
-              <span class="text-blue-600 font-bold">Player {{ gameState.startPlayerIndex + 1 }}</span>
+            <h3 class="font-medium text-blue-800 mb-3">Current Game:</h3>
+            <div class="grid grid-cols-2 gap-4 text-sm">
+              <div class="flex justify-between">
+                <span class="text-gray-600">Players:</span>
+                <span class="font-bold text-blue-700">{{ gameState.players }}</span>
+              </div>
+              <div class="flex justify-between">
+                <span class="text-gray-600">Category:</span>
+                <span class="font-bold text-blue-700">{{ gameState.category }}</span>
+              </div>
+              <div class="flex justify-between">
+                <span class="text-gray-600">Round:</span>
+                <span class="font-bold text-blue-700">{{ gameState.round }}</span>
+              </div>
+              <div class="flex justify-between">
+                <span class="text-gray-600">Impostor:</span>
+                <span class="font-bold text-red-600">Player {{ gameState.impostorIndex + 1 }}</span>
+              </div>
+              <div class="flex justify-between">
+                <span class="text-gray-600">Secret Word:</span>
+                <span class="font-bold text-green-600">{{ gameState.chosenWord }}</span>
+              </div>
+              <div class="flex justify-between">
+                <span class="text-gray-600">Starting Player:</span>
+                <span class="font-bold text-purple-600">Player {{ gameState.startPlayerIndex + 1 }}</span>
+              </div>
             </div>
           </div>
 
@@ -150,8 +124,15 @@
             >
               🔄 Reset Game
             </Button>
+            <Button variant="secondary" @click="nextRound" class="flex items-center space-x-2">
+              <RotateCcw class="h-4 w-4" />
+              <span>Next Round</span>
+            </Button>
             <Button @click="showRules = true" variant="ghost">
               📖 Rules
+            </Button>
+            <Button @click="showModeSelection = true" variant="outline">
+              🎮 New Game
             </Button>
           </div>
         </CardContent>
@@ -550,11 +531,8 @@ import CardHeader from '@/components/ui/CardHeader.vue'
 import CardTitle from '@/components/ui/CardTitle.vue'
 import CardContent from '@/components/ui/CardContent.vue'
 import Button from '@/components/ui/Button.vue'
-import Input from '@/components/ui/Input.vue'
-import Label from '@/components/ui/Label.vue'
-import Select from '@/components/ui/Select.vue'
 import { Users, RotateCcw } from 'lucide-vue-next'
-import { WORD_BANK, ALL_CATEGORIES, createGameState, type GameState, numberFromRng, seededRandFromKey } from '@/lib/gameLogic'
+import { ALL_CATEGORIES, createGameState, type GameState, numberFromRng, seededRandFromKey } from '@/lib/gameLogic'
 import { 
   generateDeterministicGame, 
   getDeterministicWord,
@@ -582,10 +560,6 @@ const hasMorePlayers = computed(() => {
   return gameState.value.activePlayer < gameState.value.players - 1
 })
 
-const shouldShowGameSetup = computed(() => {
-  // Hide setup in multiplayer mode (settings come from smart game code)
-  return multiplayerState.value.gameMode === 'local'
-})
 
 // Methods
 function updateGameState() {
@@ -688,6 +662,19 @@ function handleJoinedGame(gameCode: string, isHost: boolean, gameSettings?: Game
   
   // Generate deterministic game state from game code
   generateDeterministicGameFromCode()
+}
+
+function handleStartLocalGame(players: number, category: string) {
+  multiplayerState.value.gameMode = 'local'
+  showModeSelection.value = false
+  
+  // Apply the settings from the unified UI
+  gameState.value.players = players
+  gameState.value.category = category
+  gameState.value.round = 1
+  
+  // Generate local game state
+  updateGameState()
 }
 
 function generateDeterministicGameFromCode() {

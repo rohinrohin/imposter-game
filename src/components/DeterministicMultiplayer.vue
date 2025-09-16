@@ -148,8 +148,8 @@
           </div>
         </div>
         
-        <!-- Game Code Display -->
-        <div class="bg-white/10 backdrop-blur-sm border-2 border-white/20 rounded-2xl p-8 mb-8">
+        <!-- Game Code Display (Multiplayer only) -->
+        <div v-if="currentMode === 'multiplayer'" class="bg-white/10 backdrop-blur-sm border-2 border-white/20 rounded-2xl p-8 mb-8">
           <p class="text-lg text-purple-200 mb-4">Smart Game Code</p>
           <div class="text-5xl font-mono font-bold text-white mb-4 tracking-wider">
             {{ gameCode }}
@@ -165,21 +165,37 @@
           </button>
         </div>
         
-        <!-- Host Setup -->
+        <!-- Action Button -->
         <div class="space-y-4">
           <button
+            v-if="currentMode === 'multiplayer'"
             @click="startAsHost"
             class="w-full bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 text-white text-xl font-bold py-4 px-8 rounded-2xl transition-all duration-300 hover:scale-105"
           >
             🚀 Start Game as Host
           </button>
+          
+          <button
+            v-else
+            @click="startLocalGame"
+            class="w-full bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600 text-white text-xl font-bold py-4 px-8 rounded-2xl transition-all duration-300 hover:scale-105"
+          >
+            🚀 Start Single Player Game
+          </button>
         </div>
         
-        <div class="mt-8 bg-blue-500/20 border border-blue-500/40 rounded-xl p-4">
+        <div v-if="currentMode === 'multiplayer'" class="mt-8 bg-blue-500/20 border border-blue-500/40 rounded-xl p-4">
           <p class="text-blue-200 text-sm">
             💡 <strong>Smart Code:</strong> Players who join will automatically get your game settings - no setup needed!
           </p>
         </div>
+        
+        <button
+          @click="step = currentMode === 'multiplayer' ? 'create-or-join' : 'mode'"
+          class="mt-8 text-purple-200 hover:text-white transition-colors duration-300"
+        >
+          ← Back
+        </button>
       </div>
     </div>
   </div>
@@ -192,9 +208,11 @@ import { generateGameCodeWithSettings, parseGameCode, isValidGameCodeFormat, typ
 const emit = defineEmits<{
   selectMode: [mode: 'local' | 'multiplayer']
   joinedGame: [gameCode: string, isHost: boolean, gameSettings?: GameCodeData]
+  startLocalGame: [players: number, category: string]
 }>()
 
 const step = ref<'mode' | 'create-or-join' | 'join' | 'create'>('mode')
+const currentMode = ref<'local' | 'multiplayer'>('local')
 const joinCode = ref('')
 const gameCode = ref('')
 const joinError = ref('')
@@ -205,14 +223,16 @@ const gameSettings = ref({
 })
 
 function selectMode(mode: 'local' | 'multiplayer') {
+  currentMode.value = mode
   if (mode === 'local') {
-    emit('selectMode', 'local')
+    step.value = 'create'
   } else {
     step.value = 'create-or-join'
   }
 }
 
 function createGame() {
+  currentMode.value = 'multiplayer'
   updateGameCode()
   step.value = 'create'
 }
@@ -248,6 +268,10 @@ function startAsHost() {
     round: gameSettings.value.round
   }
   emit('joinedGame', gameCode.value, true, hostGameSettings)
+}
+
+function startLocalGame() {
+  emit('startLocalGame', gameSettings.value.players, gameSettings.value.category)
 }
 
 async function copyGameCode() {
