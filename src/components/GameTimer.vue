@@ -31,7 +31,7 @@ const props = defineProps<{
 
 const timeLeft = ref(props.initialTime || 300) // 5 minutes default
 const isRunning = ref(false)
-let intervalId: number | null = null
+let intervalId: ReturnType<typeof setInterval> | null = null
 
 const timeClass = computed(() => {
   if (timeLeft.value <= 30) return 'text-red-600 animate-pulse'

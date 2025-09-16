@@ -253,12 +253,7 @@
               
               <!-- Player Number -->
               <div class="text-2xl md:text-3xl font-bold text-white group-hover:text-yellow-200 transition-colors duration-300">
-                <div v-if="multiplayerState.gameMode === 'multiplayer' && multiplayerState.playerNames[idx]">
-                  {{ multiplayerState.playerNames[idx] }}
-                </div>
-                <div v-else>
-                  Player {{ idx + 1 }}
-                </div>
+                Player {{ idx + 1 }}
               </div>
               
               <!-- Starting player indicator -->
@@ -553,7 +548,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted, onUnmounted } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import { useLocalStorage } from '@vueuse/core'
 import Card from '@/components/ui/Card.vue'
 import CardHeader from '@/components/ui/CardHeader.vue'
@@ -567,12 +562,7 @@ import { Users, RotateCcw } from 'lucide-vue-next'
 import { WORD_BANK, ALL_CATEGORIES, createGameState, type GameState, numberFromRng, seededRandFromKey } from '@/lib/gameLogic'
 import { 
   generateDeterministicGame, 
-  getDeterministicPlayerId, 
-  isPlayerImpostor, 
   getDeterministicWord,
-  getDeterministicStartingPlayer,
-  generateGameCodeWithSettings,
-  parseGameCode,
   type DeterministicGameConfig,
   type GameCodeData
 } from '@/lib/deterministicMultiplayer'
@@ -642,10 +632,6 @@ function startGame() {
   gameState.value.revealed = false
 }
 
-function selectPlayer(playerIndex: number) {
-  gameState.value.activePlayer = playerIndex
-  gameState.value.revealed = false
-}
 
 function selectPlayerFullscreen(playerIndex: number) {
   gameState.value.activePlayer = playerIndex

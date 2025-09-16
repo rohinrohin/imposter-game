@@ -13,14 +13,8 @@ export interface DeterministicGameConfig {
  * Same inputs = same outputs every time, on every device
  */
 export function generateDeterministicGame(config: DeterministicGameConfig): GameState {
-  // Create a unique seed from game code + config
-  const configSeed = `${config.gameCode}-${config.players}-${config.round}-${config.category}`
-  
   // Generate the base game state deterministically
   const baseGameState = createGameState(config.players, config.round, config.category)
-  
-  // Override with deterministic values based on game code
-  const gameCodeRng = seededRandFromKey(config.gameCode)
   
   // Deterministic impostor selection based on game code + player names
   const playerSeed = `${config.gameCode}-players-${config.playerNames.sort().join('-')}`

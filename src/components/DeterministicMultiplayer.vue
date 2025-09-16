@@ -210,7 +210,7 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import { generateGameCode, generateGameCodeWithSettings, parseGameCode, isValidGameCodeFormat, type GameCodeData } from '@/lib/deterministicMultiplayer'
+import { generateGameCodeWithSettings, parseGameCode, isValidGameCodeFormat, type GameCodeData } from '@/lib/deterministicMultiplayer'
 
 const emit = defineEmits<{
   selectMode: [mode: 'local' | 'multiplayer']
@@ -267,7 +267,7 @@ function joinGame() {
   // Try to parse game settings from code
   const gameSettings = parseGameCode(joinCode.value)
   
-  emit('joinedGame', joinCode.value, playerName.value.trim(), false, gameSettings)
+  emit('joinedGame', joinCode.value, playerName.value.trim(), false, gameSettings || undefined)
 }
 
 function startAsHost() {
