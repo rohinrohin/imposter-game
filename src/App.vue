@@ -25,7 +25,7 @@
             <span v-if="multiplayerState.isHost">• 👑 Host</span>
           </div>
           <p class="text-sm text-gray-500 mt-2">
-            Playing as: <strong>{{ multiplayerState.playerName }}</strong> • {{ gameState.category }} category
+            {{ gameState.category }} category • {{ gameState.players }} players
           </p>
           <p class="text-xs text-gray-400 mt-1">
             Same code = Same game setup on all devices
@@ -296,7 +296,7 @@
             </p>
             <div class="mt-4 bg-white/10 backdrop-blur-sm rounded-xl p-4 max-w-2xl mx-auto">
               <p class="text-blue-100 text-sm">
-                Playing as: <strong>{{ multiplayerState.playerName }}</strong> in game <strong>{{ multiplayerState.gameCode }}</strong>
+                Game Code: <strong>{{ multiplayerState.gameCode }}</strong> | Round: <strong>{{ gameState.round }}</strong>
               </p>
             </div>
           </div>
@@ -440,16 +440,11 @@
             <!-- Privacy Screen -->
             <div class="mb-8">
               <h2 class="text-4xl md:text-6xl font-bold text-white mb-4">
-                <span v-if="multiplayerState.gameMode === 'multiplayer' && multiplayerState.playerNames[gameState.activePlayer!]">
-                  🎭 {{ multiplayerState.playerNames[gameState.activePlayer!] }}
-                </span>
-                <span v-else>
-                  🎭 Player {{ gameState.activePlayer + 1 }}
-                </span>
+                🎭 Player {{ gameState.activePlayer + 1 }}
               </h2>
               <p class="text-xl md:text-2xl text-gray-300 mb-8">
                 <span v-if="multiplayerState.gameMode === 'multiplayer'">
-                  Make sure only {{ multiplayerState.playerNames[gameState.activePlayer!] || `Player ${gameState.activePlayer + 1}` }} can see this
+                  Make sure only Player {{ gameState.activePlayer + 1 }} can see this
                 </span>
                 <span v-else>
                   Make sure only you can see the screen
@@ -576,10 +571,8 @@ const showModeSelection = ref(true)
 // Deterministic multiplayer state
 const multiplayerState = ref({
   gameCode: null as string | null,
-  playerName: null as string | null,
   isHost: false,
   gameMode: 'local' as 'local' | 'multiplayer',
-  playerNames: [] as string[],
   selectedPlayerIndex: null as number | null
 })
 
@@ -680,9 +673,8 @@ function handleModeSelection(mode: 'local' | 'multiplayer') {
   }
 }
 
-function handleJoinedGame(gameCode: string, playerName: string, isHost: boolean, gameSettings?: GameCodeData) {
+function handleJoinedGame(gameCode: string, isHost: boolean, gameSettings?: GameCodeData) {
   multiplayerState.value.gameCode = gameCode
-  multiplayerState.value.playerName = playerName
   multiplayerState.value.isHost = isHost
   multiplayerState.value.gameMode = 'multiplayer'
   showModeSelection.value = false
@@ -701,16 +693,13 @@ function handleJoinedGame(gameCode: string, playerName: string, isHost: boolean,
 function generateDeterministicGameFromCode() {
   if (!multiplayerState.value.gameCode) return
   
-  // For now, use a simple player setup - in a real app, you'd collect all player names
-  const playerNames = multiplayerState.value.playerName ? [multiplayerState.value.playerName] : []
-  
   // Create deterministic game config
   const config: DeterministicGameConfig = {
     gameCode: multiplayerState.value.gameCode,
     players: gameState.value.players,
     round: gameState.value.round,
     category: gameState.value.category,
-    playerNames: playerNames
+    playerNames: [] // No player names needed
   }
   
   // Generate deterministic game state
@@ -723,8 +712,6 @@ function generateDeterministicGameFromCode() {
     startPlayerIndex: deterministicGame.startPlayerIndex,
     chosenWord: getDeterministicWord(config.gameCode, config.category, config.round)
   }
-  
-  multiplayerState.value.playerNames = playerNames
 }
 
 // Update game state generation to be deterministic in multiplayer mode

@@ -63,7 +63,7 @@
       <!-- Join Game -->
       <div v-else-if="step === 'join'" class="text-center fade-in">
         <h1 class="text-4xl md:text-6xl font-bold text-white mb-8">🔗 Join Game</h1>
-        <p class="text-xl text-purple-100 mb-12">Enter the game code and your name</p>
+        <p class="text-xl text-purple-100 mb-12">Enter the game code to join</p>
         
         <div class="space-y-6">
           <div>
@@ -71,27 +71,16 @@
             <input
               v-model="joinCode"
               type="text"
-              placeholder="Enter 6-character code"
-              maxlength="6"
+              placeholder="Enter 6-7 character code"
+              maxlength="7"
               class="w-full text-center text-2xl font-mono bg-white/10 backdrop-blur-sm border-2 border-white/20 rounded-2xl p-4 text-white placeholder-white/50 focus:outline-none focus:border-white/40 focus:ring-4 focus:ring-white/20"
               @input="joinCode = joinCode.toUpperCase()"
             />
           </div>
           
-          <div>
-            <label class="block text-white text-lg font-medium mb-2">Your Name</label>
-            <input
-              v-model="playerName"
-              type="text"
-              placeholder="Enter your name"
-              maxlength="20"
-              class="w-full text-center text-xl bg-white/10 backdrop-blur-sm border-2 border-white/20 rounded-2xl p-4 text-white placeholder-white/50 focus:outline-none focus:border-white/40 focus:ring-4 focus:ring-white/20"
-            />
-          </div>
-          
           <button
             @click="joinGame"
-            :disabled="!joinCode || joinCode.length !== 6 || !playerName"
+            :disabled="!joinCode || joinCode.length < 6"
             class="w-full bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600 disabled:from-gray-500 disabled:to-gray-600 disabled:cursor-not-allowed text-white text-xl font-bold py-4 px-8 rounded-2xl transition-all duration-300 hover:scale-105 disabled:hover:scale-100"
           >
             🚀 Join Game
@@ -178,21 +167,9 @@
         
         <!-- Host Setup -->
         <div class="space-y-4">
-          <div>
-            <label class="block text-white text-lg font-medium mb-2">Your Name (Host)</label>
-            <input
-              v-model="hostName"
-              type="text"
-              placeholder="Enter your name"
-              maxlength="20"
-              class="w-full text-center text-xl bg-white/10 backdrop-blur-sm border-2 border-white/20 rounded-2xl p-4 text-white placeholder-white/50 focus:outline-none focus:border-white/40 focus:ring-4 focus:ring-white/20"
-            />
-          </div>
-          
           <button
             @click="startAsHost"
-            :disabled="!hostName"
-            class="w-full bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 disabled:from-gray-500 disabled:to-gray-600 disabled:cursor-not-allowed text-white text-xl font-bold py-4 px-8 rounded-2xl transition-all duration-300 hover:scale-105 disabled:hover:scale-100"
+            class="w-full bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 text-white text-xl font-bold py-4 px-8 rounded-2xl transition-all duration-300 hover:scale-105"
           >
             🚀 Start Game as Host
           </button>
@@ -214,13 +191,11 @@ import { generateGameCodeWithSettings, parseGameCode, isValidGameCodeFormat, typ
 
 const emit = defineEmits<{
   selectMode: [mode: 'local' | 'multiplayer']
-  joinedGame: [gameCode: string, playerName: string, isHost: boolean, gameSettings?: GameCodeData]
+  joinedGame: [gameCode: string, isHost: boolean, gameSettings?: GameCodeData]
 }>()
 
 const step = ref<'mode' | 'create-or-join' | 'join' | 'create'>('mode')
 const joinCode = ref('')
-const playerName = ref('')
-const hostName = ref('')
 const gameCode = ref('')
 const joinError = ref('')
 const gameSettings = ref({
@@ -259,27 +234,20 @@ function joinGame() {
     return
   }
   
-  if (!playerName.value.trim()) {
-    joinError.value = 'Please enter your name'
-    return
-  }
-  
   // Try to parse game settings from code
   const gameSettings = parseGameCode(joinCode.value)
   
-  emit('joinedGame', joinCode.value, playerName.value.trim(), false, gameSettings || undefined)
+  emit('joinedGame', joinCode.value, false, gameSettings || undefined)
 }
 
 function startAsHost() {
-  if (hostName.value.trim()) {
-    const hostGameSettings: GameCodeData = {
-      code: gameCode.value,
-      players: gameSettings.value.players,
-      category: gameSettings.value.category,
-      round: gameSettings.value.round
-    }
-    emit('joinedGame', gameCode.value, hostName.value.trim(), true, hostGameSettings)
+  const hostGameSettings: GameCodeData = {
+    code: gameCode.value,
+    players: gameSettings.value.players,
+    category: gameSettings.value.category,
+    round: gameSettings.value.round
   }
+  emit('joinedGame', gameCode.value, true, hostGameSettings)
 }
 
 async function copyGameCode() {
