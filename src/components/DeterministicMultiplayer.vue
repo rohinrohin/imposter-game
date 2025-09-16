@@ -3,7 +3,7 @@
     <div class="w-full max-w-2xl">
       <!-- Mode Selection -->
       <div v-if="step === 'mode'" class="text-center fade-in">
-        <h1 class="text-4xl md:text-6xl font-bold text-white mb-8">🎮 Game Mode</h1>
+        <h1 class="text-4xl md:text-6xl font-bold text-white mb-8">🎮 Imposter Game Word Generator</h1>
         <p class="text-xl text-purple-100 mb-12">Choose how you want to play</p>
         
         <div class="space-y-6">
