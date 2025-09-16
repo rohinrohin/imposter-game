@@ -390,6 +390,7 @@
 <script setup lang="ts">
 import { ref, computed, onMounted } from 'vue'
 import { useLocalStorage } from '@vueuse/core'
+import { inject } from '@vercel/analytics'
 import Card from '@/components/ui/Card.vue'
 import CardHeader from '@/components/ui/CardHeader.vue'
 import CardTitle from '@/components/ui/CardTitle.vue'
@@ -589,6 +590,8 @@ function startNextRound() {
 // Initialize
 onMounted(() => {
   updateGameState()
+  // Initialize Vercel Analytics
+  inject()
 })
 
 </script>
