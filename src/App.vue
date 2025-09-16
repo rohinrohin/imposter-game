@@ -9,30 +9,6 @@
     />
     
     <div class="mx-auto max-w-4xl space-y-6">
-      <!-- Header -->
-      <div class="text-center py-8">
-        <h1 class="text-4xl font-bold text-gray-800 mb-2">🕵️ Impostor Word Game</h1>
-        <p class="text-gray-600">Find the impostor who doesn't know the secret word!</p>
-        
-        <!-- Multiplayer Status -->
-        <div v-if="multiplayerState.gameMode === 'multiplayer'" class="mt-4">
-          <div class="inline-flex items-center space-x-2 bg-green-100 text-green-800 px-4 py-2 rounded-full text-sm font-medium">
-            <span class="w-2 h-2 bg-green-500 rounded-full"></span>
-            <span>🌐 Multiplayer</span>
-            <span>•</span>
-            <span>{{ multiplayerState.gameCode }}</span>
-            <span>•</span>
-            <span>Round {{ gameState.round }}</span>
-            <span v-if="multiplayerState.isHost">• 👑 Host</span>
-          </div>
-          <p class="text-sm text-gray-500 mt-2">
-            {{ gameState.category }} category • {{ gameState.players }} players
-          </p>
-          <p class="text-xs text-gray-400 mt-1">
-            Same code = Same game setup on all devices
-          </p>
-        </div>
-      </div>
 
       <!-- Game Rules Modal (shown on first visit) -->
       <div v-if="showRules" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
@@ -66,133 +42,7 @@
         </Card>
       </div>
 
-      <!-- Game Actions (shown when game is configured) -->
-      <Card v-if="!showModeSelection" class="fade-in">
-        <CardHeader>
-          <CardTitle class="flex items-center space-x-2">
-            <Users class="h-5 w-5" />
-            <span>Game Actions</span>
-          </CardTitle>
-        </CardHeader>
-        <CardContent class="space-y-6">
-          <!-- Game Info -->
-          <div class="bg-blue-50 rounded-lg p-4 space-y-2">
-            <h3 class="font-medium text-blue-800 mb-3">Current Game:</h3>
-            <div class="grid grid-cols-2 gap-4 text-sm">
-              <div class="flex justify-between">
-                <span class="text-gray-600">Players:</span>
-                <span class="font-bold text-blue-700">{{ gameState.players }}</span>
-              </div>
-              <div class="flex justify-between">
-                <span class="text-gray-600">Category:</span>
-                <span class="font-bold text-blue-700">{{ gameState.category }}</span>
-              </div>
-              <div class="flex justify-between">
-                <span class="text-gray-600">Round:</span>
-                <span class="font-bold text-blue-700">{{ gameState.round }}</span>
-              </div>
-              <div class="flex justify-between">
-                <span class="text-gray-600">Impostor:</span>
-                <span class="font-bold text-red-600">Player {{ gameState.impostorIndex + 1 }}</span>
-              </div>
-              <div class="flex justify-between">
-                <span class="text-gray-600">Secret Word:</span>
-                <span class="font-bold text-green-600">{{ gameState.chosenWord }}</span>
-              </div>
-              <div class="flex justify-between">
-                <span class="text-gray-600">Starting Player:</span>
-                <span class="font-bold text-purple-600">Player {{ gameState.startPlayerIndex + 1 }}</span>
-              </div>
-            </div>
-          </div>
 
-          <!-- Game Actions -->
-          <div class="flex flex-wrap gap-3">
-            <Button 
-              v-if="!gameState.gameStarted" 
-              @click="startGame" 
-              size="lg" 
-              class="flex-1 pulse-animation"
-            >
-              🚀 Start Game
-            </Button>
-            <Button 
-              v-if="gameState.gameStarted"
-              @click="resetGame" 
-              variant="outline"
-              class="flex-1"
-            >
-              🔄 Reset Game
-            </Button>
-            <Button variant="secondary" @click="nextRound" class="flex items-center space-x-2">
-              <RotateCcw class="h-4 w-4" />
-              <span>Next Round</span>
-            </Button>
-            <Button @click="showRules = true" variant="ghost">
-              📖 Rules
-            </Button>
-            <Button @click="showModeSelection = true" variant="outline">
-              🎮 New Game
-            </Button>
-          </div>
-        </CardContent>
-      </Card>
-
-      <!-- Multiplayer Game Summary (shown instead of setup) -->
-      <Card v-if="multiplayerState.gameMode === 'multiplayer'" class="fade-in">
-        <CardHeader>
-          <CardTitle class="flex items-center space-x-2">
-            <Users class="h-5 w-5" />
-            <span>Game Ready</span>
-          </CardTitle>
-        </CardHeader>
-        <CardContent class="space-y-4">
-          <div class="bg-green-50 rounded-lg p-4 space-y-2">
-            <h3 class="font-medium text-green-800 mb-3">Settings from Game Code:</h3>
-            <div class="grid grid-cols-2 gap-4 text-sm">
-              <div class="flex justify-between">
-                <span class="text-gray-600">Players:</span>
-                <span class="font-bold text-green-700">{{ gameState.players }}</span>
-              </div>
-              <div class="flex justify-between">
-                <span class="text-gray-600">Category:</span>
-                <span class="font-bold text-green-700">{{ gameState.category }}</span>
-              </div>
-              <div class="flex justify-between">
-                <span class="text-gray-600">Round:</span>
-                <span class="font-bold text-green-700">{{ gameState.round }}</span>
-              </div>
-              <div class="flex justify-between">
-                <span class="text-gray-600">Starting Player:</span>
-                <span class="font-bold text-green-700">Player {{ gameState.startPlayerIndex + 1 }}</span>
-              </div>
-            </div>
-          </div>
-          
-          <!-- Game Actions -->
-          <div class="flex flex-wrap gap-3">
-            <Button 
-              v-if="!gameState.gameStarted" 
-              @click="startGame" 
-              size="lg" 
-              class="flex-1 pulse-animation"
-            >
-              🚀 Start Game
-            </Button>
-            <Button 
-              v-if="gameState.gameStarted"
-              @click="resetGame" 
-              variant="outline"
-              class="flex-1"
-            >
-              🔄 Reset Game
-            </Button>
-            <Button @click="showRules = true" variant="ghost">
-              📖 Rules
-            </Button>
-          </div>
-        </CardContent>
-      </Card>
 
       <!-- Full-Screen Player Selection (only shown when game is started and no active player) -->
       <div v-if="gameState.gameStarted && gameState.activePlayer === null && multiplayerState.gameMode === 'local'" class="fixed inset-0 bg-gradient-to-br from-purple-600 via-blue-600 to-indigo-800 flex items-center justify-center z-50 p-4">
@@ -397,12 +247,20 @@
             >
               🔄 Choose Different Player
             </button>
-            <button 
-              @click="startNextRound"
-              class="bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white text-xl font-semibold py-4 px-8 rounded-2xl transition-all duration-300 hover:scale-105 active:scale-95 focus:outline-none focus:ring-4 focus:ring-green-400"
-            >
-              ➡️ Next Round
-            </button>
+            <div class="flex gap-4 justify-center">
+              <button 
+                @click="startNextRound"
+                class="bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white text-xl font-semibold py-4 px-8 rounded-2xl transition-all duration-300 hover:scale-105 active:scale-95 focus:outline-none focus:ring-4 focus:ring-green-400"
+              >
+                ➡️ Next Round
+              </button>
+              <button 
+                @click="showModeSelection = true"
+                class="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white text-xl font-semibold py-4 px-8 rounded-2xl transition-all duration-300 hover:scale-105 active:scale-95 focus:outline-none focus:ring-4 focus:ring-purple-400"
+              >
+                🎮 New Game
+              </button>
+            </div>
           </div>
           
           <!-- Multiplayer Round Instructions -->
@@ -509,6 +367,12 @@
               >
                 🎯 Next Round
               </button>
+              <button 
+                @click="showModeSelection = true"
+                class="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white text-xl font-semibold py-4 px-8 rounded-2xl transition-all duration-300 hover:scale-105 active:scale-95 focus:outline-none focus:ring-4 focus:ring-purple-400"
+              >
+                🎮 New Game
+              </button>
             </div>
           </div>
         </div>
@@ -531,7 +395,6 @@ import CardHeader from '@/components/ui/CardHeader.vue'
 import CardTitle from '@/components/ui/CardTitle.vue'
 import CardContent from '@/components/ui/CardContent.vue'
 import Button from '@/components/ui/Button.vue'
-import { Users, RotateCcw } from 'lucide-vue-next'
 import { ALL_CATEGORIES, createGameState, type GameState, numberFromRng, seededRandFromKey } from '@/lib/gameLogic'
 import { 
   generateDeterministicGame, 
@@ -621,20 +484,6 @@ function nextPlayer() {
   }
 }
 
-function nextRound() {
-  gameState.value.round += 1
-  updateDeterministicGameState()
-  gameState.value.activePlayer = null
-  gameState.value.revealed = false
-}
-
-function resetGame() {
-  gameState.value.gameStarted = false
-  gameState.value.activePlayer = null
-  gameState.value.revealed = false
-  gameState.value.round = 1
-  updateDeterministicGameState()
-}
 
 // Deterministic multiplayer functions
 function handleModeSelection(mode: 'local' | 'multiplayer') {
@@ -660,8 +509,9 @@ function handleJoinedGame(gameCode: string, isHost: boolean, gameSettings?: Game
     gameState.value.round = gameSettings.round
   }
   
-  // Generate deterministic game state from game code
+  // Generate deterministic game state from game code and start immediately
   generateDeterministicGameFromCode()
+  startGame()
 }
 
 function handleStartLocalGame(players: number, category: string) {
@@ -673,8 +523,9 @@ function handleStartLocalGame(players: number, category: string) {
   gameState.value.category = category
   gameState.value.round = 1
   
-  // Generate local game state
+  // Generate local game state and start immediately
   updateGameState()
+  startGame()
 }
 
 function generateDeterministicGameFromCode() {
