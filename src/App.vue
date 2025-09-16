@@ -65,8 +65,8 @@
         </Card>
       </div>
 
-      <!-- Game Setup -->
-      <Card class="fade-in">
+      <!-- Game Setup (hidden in multiplayer mode with smart codes) -->
+      <Card v-if="shouldShowGameSetup" class="fade-in">
         <CardHeader>
           <CardTitle class="flex items-center space-x-2">
             <Users class="h-5 w-5" />
@@ -132,6 +132,62 @@
             </div>
           </div>
 
+          <!-- Game Actions -->
+          <div class="flex flex-wrap gap-3">
+            <Button 
+              v-if="!gameState.gameStarted" 
+              @click="startGame" 
+              size="lg" 
+              class="flex-1 pulse-animation"
+            >
+              🚀 Start Game
+            </Button>
+            <Button 
+              v-if="gameState.gameStarted"
+              @click="resetGame" 
+              variant="outline"
+              class="flex-1"
+            >
+              🔄 Reset Game
+            </Button>
+            <Button @click="showRules = true" variant="ghost">
+              📖 Rules
+            </Button>
+          </div>
+        </CardContent>
+      </Card>
+
+      <!-- Multiplayer Game Summary (shown instead of setup) -->
+      <Card v-if="multiplayerState.gameMode === 'multiplayer'" class="fade-in">
+        <CardHeader>
+          <CardTitle class="flex items-center space-x-2">
+            <Users class="h-5 w-5" />
+            <span>Game Ready</span>
+          </CardTitle>
+        </CardHeader>
+        <CardContent class="space-y-4">
+          <div class="bg-green-50 rounded-lg p-4 space-y-2">
+            <h3 class="font-medium text-green-800 mb-3">Settings from Game Code:</h3>
+            <div class="grid grid-cols-2 gap-4 text-sm">
+              <div class="flex justify-between">
+                <span class="text-gray-600">Players:</span>
+                <span class="font-bold text-green-700">{{ gameState.players }}</span>
+              </div>
+              <div class="flex justify-between">
+                <span class="text-gray-600">Category:</span>
+                <span class="font-bold text-green-700">{{ gameState.category }}</span>
+              </div>
+              <div class="flex justify-between">
+                <span class="text-gray-600">Round:</span>
+                <span class="font-bold text-green-700">{{ gameState.round }}</span>
+              </div>
+              <div class="flex justify-between">
+                <span class="text-gray-600">Starting Player:</span>
+                <span class="font-bold text-green-700">Player {{ gameState.startPlayerIndex + 1 }}</span>
+              </div>
+            </div>
+          </div>
+          
           <!-- Game Actions -->
           <div class="flex flex-wrap gap-3">
             <Button 
@@ -541,6 +597,11 @@ const multiplayerState = ref({
 const hasMorePlayers = computed(() => {
   if (gameState.value.activePlayer === null) return false
   return gameState.value.activePlayer < gameState.value.players - 1
+})
+
+const shouldShowGameSetup = computed(() => {
+  // Hide setup in multiplayer mode (settings come from smart game code)
+  return multiplayerState.value.gameMode === 'local'
 })
 
 // Methods
