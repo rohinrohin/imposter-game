@@ -1,92 +1,137 @@
 // ---- Expanded word bank ----
 export const WORD_BANK: Record<string, string[]> = {
-  Everyday: [
-    "coffee", "umbrella", "backpack", "toothbrush", "wallet", "headphones", "keys", "sunglasses", 
-    "notebook", "water bottle", "pillow", "towel", "soap", "mirror", "clock", "candle", "scissors", 
-    "tape", "stapler", "pen", "pencil", "eraser", "ruler", "calculator", "calendar", "diary", 
-    "flashlight", "batteries", "charger", "remote control"
+  "Gen Z Vibes": [
+    "rizz", "slay", "vibe check", "no cap", "bussin", "chef's kiss", "touch grass", "main character",
+    "gaslight", "gatekeep", "girlboss", "delulu", "living rent free", "caught in 4K", "it's giving",
+    "understood the assignment", "periodt", "and I oop", "stan", "simp", "mid", "ate and left no crumbs",
+    "serving looks", "that's on period", "the way", "I'm screaming", "not me", "bestie", "purr",
+    "sheesh", "respectfully", "unhinged", "chronically online", "hot girl walk", "roman empire",
+    "beige flag", "red flag", "green flag", "situationship", "soft launch", "hard launch"
   ],
-  Food: [
-    "pizza", "sushi", "burrito", "lasagna", "pancakes", "curry", "sandwich", "salad", "soup", 
-    "pasta", "hamburger", "hot dog", "taco", "noodles", "rice", "bread", "cheese", "chocolate", 
-    "ice cream", "cake", "cookies", "pie", "donut", "bagel", "cereal", "yogurt", "banana", 
-    "apple", "orange", "strawberry", "grapes", "watermelon", "avocado", "tomato", "carrot"
+  "Psychedelic Trip": [
+    "fractal", "kaleidoscope", "cosmic dance", "third eye", "astral plane", "consciousness expansion",
+    "sacred geometry", "rainbow serpent", "time dilation", "ego death", "divine light", "infinite loop",
+    "cosmic giggle", "reality melt", "color symphony", "dimension hop", "spirit molecule", "entity contact",
+    "mandala", "chakra", "frequency shift", "universal love", "energy waves", "crystalline structures",
+    "sacred spiral", "quantum realm", "void meditation", "inner cosmos", "light beings", "unified field",
+    "transcendence", "higher self", "cosmic consciousness", "archetypal vision", "eternal now", "interconnectedness",
+    "vibration", "enlightenment", "oneness", "metamorphosis", "celestial journey", "mystic portal"
   ],
-  Places: [
-    "library", "airport", "zoo", "museum", "beach", "mountain", "park", "restaurant", "cinema", 
-    "hospital", "school", "office", "mall", "gym", "hotel", "bank", "post office", "gas station", 
-    "pharmacy", "bakery", "cafe", "theater", "stadium", "playground", "garden", "farm", "forest", 
-    "desert", "island", "bridge", "tunnel", "castle", "church", "temple", "lighthouse"
+  "Viral Internet": [
+    "meme", "going viral", "TikTok trend", "algorithm", "for you page", "content creator", "influencer",
+    "aesthetic", "core memory", "main character energy", "plot twist", "lore drop", "deep lore",
+    "canon event", "NPC energy", "side quest", "speedrun", "glitch in the matrix", "parallel universe",
+    "timeline", "multiverse", "simulation theory", "cursed image", "blessed image", "chaotic energy",
+    "dark academia", "cottagecore", "goblincore", "weirdcore", "traumacore", "Y2K", "vaporwave",
+    "indie sleaze", "clean girl", "that girl", "it girl", "mob wife", "blokecore", "dopamine menu",
+    "girlhood", "boyhood", "adulting", "hyperpop", "bedroom pop"
   ],
-  Animals: [
-    "elephant", "penguin", "butterfly", "dolphin", "tiger", "rabbit", "eagle", "frog", "horse", 
-    "cat", "dog", "lion", "giraffe", "zebra", "monkey", "bear", "wolf", "fox", "deer", "owl", 
-    "parrot", "snake", "turtle", "shark", "whale", "octopus", "crab", "lobster", "bee", "ant", 
-    "spider", "ladybug", "dragonfly", "mouse", "hamster", "guinea pig", "goldfish", "chicken"
+  "Fantasy Realms": [
+    "dragon", "unicorn", "phoenix", "griffin", "basilisk", "chimera", "hydra", "pegasus", "centaur",
+    "mermaid", "fairy", "elf", "dwarf", "goblin", "troll", "ogre", "orc", "wizard", "sorcerer",
+    "witch", "warlock", "necromancer", "paladin", "ranger", "rogue", "bard", "druid", "monk",
+    "enchanted forest", "crystal cave", "floating island", "ancient ruins", "mystic portal", "magic sword",
+    "healing potion", "spell book", "wand", "staff", "amulet", "crown of thorns", "legendary armor",
+    "quest", "prophecy", "chosen one", "dark lord", "sacred temple", "forbidden magic"
   ],
-  Sports: [
-    "basketball", "swimming", "tennis", "soccer", "golf", "volleyball", "cycling", "running", 
-    "boxing", "skiing", "baseball", "football", "hockey", "badminton", "ping pong", "wrestling", 
-    "gymnastics", "archery", "bowling", "surfing", "skateboarding", "snowboarding", "climbing", 
-    "hiking", "fishing", "sailing", "rowing", "diving", "karate", "judo", "yoga", "dancing"
+  "Street Food": [
+    "tacos al pastor", "banh mi", "falafel wrap", "churros", "empanadas", "samosas", "spring rolls",
+    "gyros", "shawarma", "kebabs", "takoyaki", "okonomiyaki", "corn dog", "funnel cake", "beignets",
+    "elote", "arepas", "pupusas", "pad thai", "pho", "ramen burger", "loaded fries", "nachos supreme",
+    "quesadilla", "burritos", "dumplings", "bao buns", "fish and chips", "poutine", "hot chicken",
+    "philly cheesesteak", "choripan", "anticuchos", "jerk chicken", "doubles", "roti", "gua bao",
+    "crepes", "waffle sandwich", "bubble waffle", "mochi donuts", "cronut", "pretzel bites"
   ],
-  Technology: [
-    "smartphone", "laptop", "headphones", "camera", "robot", "drone", "tablet", "keyboard", 
-    "mouse", "monitor", "printer", "scanner", "router", "modem", "speaker", "microphone", 
-    "television", "radio", "GPS", "smartwatch", "earbuds", "charger", "battery", "USB drive", 
-    "hard drive", "webcam", "projector", "calculator", "computer", "server", "satellite", "radar"
+  "Retro Gaming": [
+    "power up", "game over", "insert coin", "high score", "extra life", "boss battle", "level up",
+    "checkpoint", "save point", "health bar", "mana potion", "critical hit", "combo breaker", "fatality",
+    "Easter egg", "cheat code", "speed run", "no clip", "pixel art", "8-bit music", "loading screen",
+    "game cartridge", "memory card", "controller", "joystick", "arcade cabinet", "LAN party",
+    "respawn", "rage quit", "GG", "noob", "pwned", "camping", "griefing", "loot drop", "rare item",
+    "legendary weapon", "secret passage", "hidden room", "warp zone", "final boss", "credits roll", "new game plus"
   ],
-  Transportation: [
-    "car", "bus", "train", "airplane", "helicopter", "boat", "ship", "bicycle", "motorcycle", 
-    "truck", "taxi", "subway", "tram", "ferry", "yacht", "canoe", "kayak", "skateboard", 
-    "scooter", "rocket", "ambulance", "fire truck", "police car", "limousine", "van", 
-    "pickup truck", "trailer", "jet", "glider", "balloon"
+  "Space Odyssey": [
+    "black hole", "supernova", "nebula", "quasar", "pulsar", "white dwarf", "red giant", "neutron star",
+    "wormhole", "asteroid belt", "cosmic dust", "dark matter", "antimatter", "space station", "lunar base",
+    "Mars colony", "terraforming", "cryosleep", "light speed", "hyperspace", "starship", "space suit",
+    "solar panel", "satellite", "rocket launch", "zero gravity", "spacewalk", "alien life", "first contact",
+    "galactic empire", "rebel alliance", "space pirates", "asteroid mining", "comet tail", "meteor shower",
+    "eclipse", "constellation", "binary stars", "exoplanet", "habitable zone", "cosmic radiation", "time dilation"
   ],
-  Professions: [
-    "doctor", "teacher", "chef", "pilot", "firefighter", "police officer", "nurse", "engineer", 
-    "lawyer", "artist", "musician", "writer", "actor", "dancer", "photographer", "journalist", 
-    "scientist", "programmer", "architect", "designer", "mechanic", "plumber", "electrician", 
-    "carpenter", "farmer", "veterinarian", "dentist", "librarian", "cashier", "waiter"
+  "Urban Legends": [
+    "Bigfoot", "Loch Ness Monster", "Mothman", "Chupacabra", "Jersey Devil", "Slenderman", "Bloody Mary",
+    "vanishing hitchhiker", "black eyed kids", "skinwalker", "wendigo", "banshee", "poltergeist",
+    "shadow people", "men in black", "Area 51", "Bermuda Triangle", "cursed object", "haunted doll",
+    "ghost ship", "phantom train", "crying lady", "headless horseman", "hook man", "babysitter killer",
+    "clown statue", "killer in backseat", "kidney heist", "alligators in sewers", "haunted mirror",
+    "ouija board", "séance gone wrong", "possessed house", "cemetery at midnight", "full moon ritual",
+    "creepy pasta", "SCP Foundation", "backrooms", "liminal space", "found footage", "analog horror", "cryptid sighting"
   ],
-  Clothing: [
-    "shirt", "pants", "dress", "skirt", "jacket", "coat", "sweater", "hoodie", "jeans", "shorts", 
-    "socks", "shoes", "boots", "sneakers", "sandals", "hat", "cap", "scarf", "gloves", "belt", 
-    "tie", "suit", "uniform", "pajamas", "underwear", "bra", "swimsuit", "raincoat", "vest", "apron"
+  "Coffee Culture": [
+    "espresso", "cappuccino", "latte", "macchiato", "americano", "flat white", "cortado", "affogato",
+    "cold brew", "nitro coffee", "pour over", "French press", "AeroPress", "siphon brew", "Turkish coffee",
+    "Vietnamese coffee", "Irish coffee", "mocha", "frappe", "iced latte", "oat milk", "almond milk",
+    "caramel drizzle", "vanilla syrup", "hazelnut flavor", "pumpkin spice", "lavender latte", "matcha latte",
+    "chai tea latte", "golden milk", "turmeric latte", "beetroot latte", "butterfly pea", "coffee art",
+    "latte art", "heart design", "rosetta", "tulip", "swan", "barista", "coffee beans", "single origin",
+    "light roast", "dark roast", "medium roast", "blonde roast", "espresso shot", "double shot", "ristretto"
   ],
-  Weather: [
-    "sunny", "cloudy", "rainy", "snowy", "windy", "stormy", "foggy", "humid", "dry", "hot", 
-    "cold", "warm", "cool", "freezing", "scorching", "drizzle", "downpour", "blizzard", 
-    "tornado", "hurricane", "lightning", "thunder", "hail", "frost", "rainbow", "mist", 
-    "breeze", "gale", "monsoon", "drought"
+  "Extreme Sports": [
+    "base jumping", "wingsuit flying", "parkour", "free running", "bungee jumping", "skydiving",
+    "hang gliding", "paragliding", "cliff diving", "big wave surfing", "kitesurfing", "wakeboarding",
+    "freestyle motocross", "BMX", "mountain biking", "downhill racing", "rock climbing", "ice climbing",
+    "free solo", "highlining", "slacklining", "snowboarding", "heli-skiing", "speed skiing",
+    "ski jumping", "freestyle skiing", "skateboarding", "vert ramp", "half pipe", "mega ramp",
+    "rally racing", "drifting", "street racing", "formula one", "supercross", "enduro racing",
+    "whitewater rafting", "kayaking", "canyoning", "cave diving", "shark cage diving", "volcano boarding", "sandboarding"
   ],
-  Music: [
-    "piano", "guitar", "violin", "drums", "trumpet", "saxophone", "flute", "clarinet", "harp", 
-    "cello", "bass", "keyboard", "microphone", "speaker", "headphones", "concert", "song", 
-    "melody", "rhythm", "beat", "harmony", "chord", "note", "scale", "tempo", "volume", 
-    "orchestra", "band", "choir", "album"
+  "Mystical Artifacts": [
+    "crystal ball", "tarot cards", "rune stones", "pendulum", "dreamcatcher", "medicine bag",
+    "singing bowl", "prayer beads", "incense burner", "smudge stick", "cauldron", "grimoire",
+    "athame", "chalice", "pentacle", "wand", "scrying mirror", "oracle deck", "spirit board",
+    "worry stone", "healing crystal", "amethyst geode", "rose quartz", "obsidian blade", "moonstone",
+    "selenite tower", "palo santo", "sage bundle", "divination tools", "astrology chart", "birth chart",
+    "manifestation journal", "spell candle", "altar cloth", "offering bowl", "feather wand", "bone dice",
+    "tribal mask", "totem pole", "shaman drum", "rain stick", "medicine wheel", "spirit animal card"
   ],
-  Emotions: [
-    "happy", "sad", "angry", "excited", "nervous", "calm", "surprised", "confused", "proud", 
-    "embarrassed", "jealous", "grateful", "worried", "relaxed", "frustrated", "content", 
-    "anxious", "cheerful", "disappointed", "hopeful", "scared", "brave", "shy", "confident", 
-    "curious", "bored", "amazed", "disgusted", "lonely", "loved"
+  "Dystopian Future": [
+    "surveillance state", "mega corporation", "cyberpunk city", "neon lights", "hologram ads",
+    "neural implant", "augmented reality", "virtual prison", "AI overlord", "robot uprising",
+    "clone army", "genetic modification", "designer babies", "memory erasure", "thought police",
+    "social credit score", "propaganda broadcast", "underground resistance", "black market tech",
+    "banned literature", "synthetic food", "water rations", "oxygen tax", "climate refugee",
+    "walled city", "wasteland", "radiation zone", "mutant creatures", "synthetic humans",
+    "consciousness upload", "digital immortality", "corporate warfare", "drone swarm", "EMP blast",
+    "bunker society", "post-apocalypse", "resource wars", "techno-feudalism", "digital currency",
+    "biometric tracking", "facial recognition", "predictive policing"
   ],
-  Colors: [
-    "red", "blue", "green", "yellow", "orange", "purple", "pink", "brown", "black", "white", 
-    "gray", "silver", "gold", "turquoise", "navy", "maroon", "lime", "olive", "teal", "aqua", 
-    "fuchsia", "coral", "salmon", "beige", "tan", "cream", "ivory", "indigo", "violet", "magenta"
+  "Comfort Things": [
+    "weighted blanket", "fuzzy socks", "hot chocolate", "cozy fireplace", "rainy day", "soft pillow",
+    "warm hoodie", "comfort food", "bubble bath", "scented candles", "fairy lights", "plush toy",
+    "movie marathon", "binge watching", "pajama day", "sleeping in", "afternoon nap", "comfort show",
+    "childhood snack", "mac and cheese", "grilled cheese", "tomato soup", "chicken noodle soup",
+    "fresh cookies", "warm bread", "morning coffee", "tea time", "book nook", "reading corner",
+    "bean bag chair", "hammock", "swing", "rocking chair", "thick blanket", "fleece throw",
+    "heating pad", "slippers", "robe", "oversized sweater", "comfort playlist", "lo-fi beats", "ASMR"
   ],
-  School: [
-    "classroom", "teacher", "student", "homework", "test", "exam", "grade", "book", "pencil", 
-    "eraser", "ruler", "calculator", "backpack", "lunch", "recess", "playground", "library", 
-    "computer", "projector", "whiteboard", "desk", "chair", "locker", "hallway", "principal", 
-    "nurse", "janitor", "bus", "uniform", "diploma"
+  "Ocean Mysteries": [
+    "deep sea trench", "bioluminescence", "giant squid", "anglerfish", "jellyfish bloom", "coral reef",
+    "kelp forest", "underwater cave", "shipwreck", "sunken treasure", "submarine volcano", "hydrothermal vent",
+    "abyssal plain", "midnight zone", "pressure suit", "diving bell", "oceanic trench", "sea monster",
+    "kraken", "megalodon", "giant octopus", "sea serpent", "ghost ship", "phantom island",
+    "lost city of Atlantis", "underwater ruins", "marine archaeology", "deep sea creature", "whale song",
+    "dolphin pod", "shark feeding frenzy", "manta ray", "sea turtle migration", "plankton bloom",
+    "red tide", "dead zone", "plastic island", "ocean current", "tidal wave", "rogue wave", "whirlpool",
+    "maelstrom", "ocean floor mapping", "sonar ping", "submarine", "bathysphere"
   ],
-  Movies: [
-    "action", "comedy", "drama", "horror", "romance", "thriller", "adventure", "fantasy", 
-    "science fiction", "documentary", "animation", "musical", "western", "mystery", "crime", 
-    "superhero", "war", "historical", "biographical", "family", "teen", "indie", "foreign", 
-    "classic", "sequel", "trilogy", "franchise", "blockbuster", "award winner", "cult classic"
+  "Cozy Aesthetics": [
+    "cottagecore", "grandmacore", "dark academia", "light academia", "forest cottage", "mushroom picking",
+    "wildflower bouquet", "vintage teacup", "handwritten letter", "wax seal", "fountain pen", "leather journal",
+    "bookshelf", "library ladder", "reading nook", "window seat", "potted plants", "herb garden",
+    "homemade bread", "jam making", "knitting", "crochet", "embroidery", "quilting", "pressed flowers",
+    "dried herbs", "mason jars", "vintage dishes", "lace curtains", "wooden furniture", "antique mirror",
+    "oil lamp", "candlestick", "typewriter", "vinyl records", "film camera", "polaroid", "scrapbook",
+    "memory box", "hope chest", "rocking chair", "porch swing", "garden path"
   ]
 }
 
