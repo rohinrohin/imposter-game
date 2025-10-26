@@ -128,21 +128,21 @@
                 class="w-full bg-white/10 border border-white/20 rounded-lg p-2 text-white"
                 @change="updateGameCode"
               >
-                <option value="Everyday">Everyday</option>
-                <option value="Food">Food</option>
-                <option value="Places">Places</option>
-                <option value="Animals">Animals</option>
-                <option value="Sports">Sports</option>
-                <option value="Technology">Technology</option>
-                <option value="Transportation">Transportation</option>
-                <option value="Professions">Professions</option>
-                <option value="Clothing">Clothing</option>
-                <option value="Weather">Weather</option>
-                <option value="Music">Music</option>
-                <option value="Emotions">Emotions</option>
-                <option value="Colors">Colors</option>
-                <option value="School">School</option>
-                <option value="Movies">Movies</option>
+                <option value="Gen Z Vibes">Gen Z Vibes</option>
+                <option value="Psychedelic Trip">Psychedelic Trip</option>
+                <option value="Viral Internet">Viral Internet</option>
+                <option value="Fantasy Realms">Fantasy Realms</option>
+                <option value="Street Food">Street Food</option>
+                <option value="Retro Gaming">Retro Gaming</option>
+                <option value="Space Odyssey">Space Odyssey</option>
+                <option value="Urban Legends">Urban Legends</option>
+                <option value="Coffee Culture">Coffee Culture</option>
+                <option value="Extreme Sports">Extreme Sports</option>
+                <option value="Mystical Artifacts">Mystical Artifacts</option>
+                <option value="Dystopian Future">Dystopian Future</option>
+                <option value="Comfort Things">Comfort Things</option>
+                <option value="Ocean Mysteries">Ocean Mysteries</option>
+                <option value="Cozy Aesthetics">Cozy Aesthetics</option>
               </select>
             </div>
           </div>
@@ -218,7 +218,7 @@ const gameCode = ref('')
 const joinError = ref('')
 const gameSettings = ref({
   players: 5,
-  category: 'Everyday',
+  category: 'Gen Z Vibes',
   round: 1
 })
 
