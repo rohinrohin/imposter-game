@@ -1,7 +1,10 @@
 {
   "permissions": {
     "allow": [
-      "Bash(npm run build:*)"
+      "Bash(npm run build:*)",
+      "Bash(git push:*)",
+      "Bash(git add:*)",
+      "Bash(git commit -m \"$(cat <<''EOF''\n🇮🇳 Add Indian category to Imposter Game\n\n- Add new \"Indian\" category with 40+ words\n- Include Bollywood, food, festivals, culture, music\n- Update category encoding (I) for multiplayer\n- Words: chai, biryani, dosa, diwali, holi, Bollywood, etc.\n\nNow 16 total categories! 🎉\nEOF\n)\")"
     ],
     "deny": [],
     "ask": []

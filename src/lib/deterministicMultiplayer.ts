@@ -79,7 +79,8 @@ export function getDeterministicWord(gameCode: string, category: string, round: 
     "Dystopian Future": ["cyberpunk", "neon", "hologram", "implant", "cyborg", "android", "robot", "drone", "AI", "algorithm", "surveillance", "corporation", "wasteland", "bunker", "vault", "radiation", "mutant", "clone", "synthetic", "virtual", "matrix", "grid", "network", "firewall", "hack", "virus", "malware", "glitch", "crash", "reboot", "upgrade", "augment", "biometric", "scanner", "chip", "code", "data", "upload", "download", "server"],
     "Comfort Things": ["blanket", "pillow", "hoodie", "slippers", "robe", "candle", "tea", "coffee", "chocolate", "cookies", "soup", "fireplace", "hammock", "swing", "nap", "cuddle", "snuggle", "cozy", "warm", "soft", "fuzzy", "plush", "teddy", "book", "movie", "music", "rain", "snow", "autumn", "sweater", "scarf", "mittens", "socks", "pajamas", "bath", "bubble", "aromatherapy", "lavender", "vanilla", "cinnamon", "nostalgia"],
     "Ocean Mysteries": ["kraken", "megalodon", "leviathan", "serpent", "mermaid", "siren", "shipwreck", "treasure", "atlantis", "abyss", "trench", "reef", "kelp", "jellyfish", "squid", "octopus", "anglerfish", "shark", "whale", "dolphin", "narwhal", "seahorse", "starfish", "coral", "pearl", "shell", "tsunami", "whirlpool", "maelstrom", "tide", "current", "wave", "depth", "submarine", "anchor", "lighthouse", "buoy", "sailor", "pirate", "mariner"],
-    "Cozy Aesthetics": ["cottagecore", "grandmacore", "bookshelf", "teacup", "vintage", "antique", "rustic", "farmhouse", "cottage", "cabin", "hearth", "quilt", "knitting", "crochet", "embroidery", "lace", "floral", "botanical", "garden", "greenhouse", "windowsill", "plants", "herbs", "wildflower", "daisy", "rose", "lavender", "honeysuckle", "mushroom", "moss", "fern", "basket", "wicker", "pottery", "ceramic", "handmade", "homemade", "baking", "bread", "jam", "honey"]
+    "Cozy Aesthetics": ["cottagecore", "grandmacore", "bookshelf", "teacup", "vintage", "antique", "rustic", "farmhouse", "cottage", "cabin", "hearth", "quilt", "knitting", "crochet", "embroidery", "lace", "floral", "botanical", "garden", "greenhouse", "windowsill", "plants", "herbs", "wildflower", "daisy", "rose", "lavender", "honeysuckle", "mushroom", "moss", "fern", "basket", "wicker", "pottery", "ceramic", "handmade", "homemade", "baking", "bread", "jam", "honey"],
+    "Indian": ["Bollywood", "chai", "dosa", "biryani", "samosa", "naan", "paneer", "curry", "tandoor", "masala", "tikka", "kebab", "lassi", "gulab jamun", "jalebi", "kulfi", "diwali", "holi", "rangoli", "mehndi", "saree", "kurta", "dhoti", "bindi", "tabla", "sitar", "harmonium", "dhol", "bhangra", "kathak", "namaste", "yoga", "mandir", "taj mahal", "rickshaw", "bazaar", "monsoon", "cricket", "maharaja", "rajput", "hindi", "punjabi", "bengali", "tamil"]
   }
   
   const ALL_CATEGORIES = Object.keys(WORD_BANK)
@@ -158,7 +159,8 @@ export function generateGameCodeWithSettings(players: number, category: string, 
     'Dystopian Future': 'D',
     'Comfort Things': 'T',
     'Ocean Mysteries': 'N',
-    'Cozy Aesthetics': 'A'
+    'Cozy Aesthetics': 'A',
+    'Indian': 'I'
   }
 
   const categoryCode = categoryMap[category] || 'Z'
@@ -209,7 +211,8 @@ export function parseGameCode(gameCode: string): GameCodeData | null {
       'D': 'Dystopian Future',
       'T': 'Comfort Things',
       'N': 'Ocean Mysteries',
-      'A': 'Cozy Aesthetics'
+      'A': 'Cozy Aesthetics',
+      'I': 'Indian'
     }
     
     const category = categoryMap[categoryCode]

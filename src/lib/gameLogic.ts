@@ -107,6 +107,14 @@ export const WORD_BANK: Record<string, string[]> = {
     "lace", "floral", "botanical", "garden", "greenhouse", "windowsill", "plants", "herbs",
     "wildflower", "daisy", "rose", "lavender", "honeysuckle", "mushroom", "moss", "fern",
     "basket", "wicker", "pottery", "ceramic", "handmade", "homemade", "baking", "bread", "jam", "honey"
+  ],
+  "Indian": [
+    "Bollywood", "chai", "dosa", "biryani", "samosa", "naan", "paneer", "curry",
+    "tandoor", "masala", "tikka", "kebab", "lassi", "gulab jamun", "jalebi", "kulfi",
+    "diwali", "holi", "rangoli", "mehndi", "saree", "kurta", "dhoti", "bindi",
+    "tabla", "sitar", "harmonium", "dhol", "bhangra", "kathak", "namaste", "yoga",
+    "mandir", "taj mahal", "rickshaw", "bazaar", "monsoon", "cricket", "maharaja", "rajput",
+    "hindi", "punjabi", "bengali", "tamil"
   ]
 }
 

@@ -144,6 +144,7 @@
                 <option value="Comfort Things">Comfort Things</option>
                 <option value="Ocean Mysteries">Ocean Mysteries</option>
                 <option value="Cozy Aesthetics">Cozy Aesthetics</option>
+                <option value="Indian">Indian</option>
               </select>
             </div>
           </div>
