@@ -82,10 +82,26 @@ export function getDeterministicWord(gameCode: string, category: string, round: 
     "Cozy Aesthetics": ["cottagecore", "grandmacore", "bookshelf", "teacup", "vintage", "antique", "rustic", "farmhouse", "cottage", "cabin", "hearth", "quilt", "knitting", "crochet", "embroidery", "lace", "floral", "botanical", "garden", "greenhouse", "windowsill", "plants", "herbs", "wildflower", "daisy", "rose", "lavender", "honeysuckle", "mushroom", "moss", "fern", "basket", "wicker", "pottery", "ceramic", "handmade", "homemade", "baking", "bread", "jam", "honey"]
   }
   
-  const words = WORD_BANK[category] || WORD_BANK["Gen Z Vibes"]
-  const wordSeed = `${gameCode}-word-${category}-${round}`
+  const ALL_CATEGORIES = Object.keys(WORD_BANK)
+
+  // Handle "Random" category by picking a random category deterministically
+  let actualCategory = category
+  let words = WORD_BANK[category]
+
+  if (category === 'Random') {
+    const categorySeed = `${gameCode}-cat-${round}`
+    const categoryRng = seededRandFromKey(categorySeed)
+    actualCategory = pickDeterministic(categoryRng, ALL_CATEGORIES)
+    words = WORD_BANK[actualCategory]
+  }
+
+  if (!words) {
+    words = WORD_BANK["Gen Z Vibes"]
+  }
+
+  const wordSeed = `${gameCode}-word-${actualCategory}-${round}`
   const wordRng = seededRandFromKey(wordSeed)
-  
+
   return pickDeterministic(wordRng, words)
 }
 
@@ -127,6 +143,7 @@ export function generateGameCodeWithSettings(players: number, category: string, 
   
   // Encode category
   const categoryMap: Record<string, string> = {
+    'Random': 'Z',
     'Gen Z Vibes': 'G',
     'Psychedelic Trip': 'P',
     'Viral Internet': 'V',
@@ -143,8 +160,8 @@ export function generateGameCodeWithSettings(players: number, category: string, 
     'Ocean Mysteries': 'N',
     'Cozy Aesthetics': 'A'
   }
-  
-  const categoryCode = categoryMap[category] || 'G'
+
+  const categoryCode = categoryMap[category] || 'Z'
   
   // Round code (1-9 -> 1-9, 10+ -> A+)
   const roundCode = round <= 9 ? round.toString() : String.fromCharCode(55 + round) // 10->A, 11->B
@@ -177,6 +194,7 @@ export function parseGameCode(gameCode: string): GameCodeData | null {
     
     // Decode category
     const categoryMap: Record<string, string> = {
+      'Z': 'Random',
       'G': 'Gen Z Vibes',
       'P': 'Psychedelic Trip',
       'V': 'Viral Internet',

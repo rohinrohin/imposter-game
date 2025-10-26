@@ -165,16 +165,25 @@ export interface GameState {
 
 export function createGameState(players: number, round: number, category: string): GameState {
   const roomKey = `${round}#${players}#${category}`
-  const words = WORD_BANK[category]
-  
+
+  // Handle "Random" category by picking a random category deterministically
+  let actualCategory = category
+  let words = WORD_BANK[category]
+
+  if (category === 'Random') {
+    const categoryRng = seededRandFromKey(roomKey + ':cat')
+    actualCategory = pickDeterministic(categoryRng, ALL_CATEGORIES)
+    words = WORD_BANK[actualCategory]
+  }
+
   const impostorIndex = numberFromRng(seededRandFromKey(roomKey + ':imp'), players)
   const chosenWord = pickDeterministic(seededRandFromKey(roomKey + ':word'), words)
   const startPlayerIndex = numberFromRng(seededRandFromKey(roomKey + ':start'), players)
-  
+
   return {
     players,
     round,
-    category,
+    category: actualCategory, // Store the actual category that was selected
     activePlayer: null,
     revealed: false,
     impostorIndex,

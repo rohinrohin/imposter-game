@@ -128,6 +128,7 @@
                 class="w-full bg-white/10 border border-white/20 rounded-lg p-2 text-white"
                 @change="updateGameCode"
               >
+                <option value="Random">🎲 Random</option>
                 <option value="Gen Z Vibes">Gen Z Vibes</option>
                 <option value="Psychedelic Trip">Psychedelic Trip</option>
                 <option value="Viral Internet">Viral Internet</option>
@@ -218,7 +219,7 @@ const gameCode = ref('')
 const joinError = ref('')
 const gameSettings = ref({
   players: 5,
-  category: 'Gen Z Vibes',
+  category: 'Random',
   round: 1
 })
 

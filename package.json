@@ -15,7 +15,8 @@
     "clsx": "^2.0.0",
     "lucide-vue-next": "^0.294.0",
     "tailwind-merge": "^2.0.0",
-    "vue": "^3.4.0"
+    "vue": "^3.4.0",
+    "vue-router": "^4.6.3"
   },
   "devDependencies": {
     "@types/node": "^22.0.0",
