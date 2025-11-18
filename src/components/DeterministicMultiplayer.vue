@@ -129,22 +129,9 @@
                 @change="updateGameCode"
               >
                 <option value="Random">🎲 Random</option>
-                <option value="Gen Z Vibes">Gen Z Vibes</option>
-                <option value="Psychedelic Trip">Psychedelic Trip</option>
-                <option value="Viral Internet">Viral Internet</option>
-                <option value="Fantasy Realms">Fantasy Realms</option>
-                <option value="Street Food">Street Food</option>
-                <option value="Retro Gaming">Retro Gaming</option>
-                <option value="Space Odyssey">Space Odyssey</option>
-                <option value="Urban Legends">Urban Legends</option>
-                <option value="Coffee Culture">Coffee Culture</option>
-                <option value="Extreme Sports">Extreme Sports</option>
-                <option value="Mystical Artifacts">Mystical Artifacts</option>
-                <option value="Dystopian Future">Dystopian Future</option>
-                <option value="Comfort Things">Comfort Things</option>
-                <option value="Ocean Mysteries">Ocean Mysteries</option>
-                <option value="Cozy Aesthetics">Cozy Aesthetics</option>
-                <option value="Indian">Indian</option>
+                <option v-for="category in ALL_CATEGORIES" :key="category" :value="category">
+                  {{ category }}
+                </option>
               </select>
             </div>
           </div>
@@ -206,6 +193,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { generateGameCodeWithSettings, parseGameCode, isValidGameCodeFormat, type GameCodeData } from '@/lib/deterministicMultiplayer'
+import { ALL_CATEGORIES } from '@/lib/constants'
 
 const emit = defineEmits<{
   selectMode: [mode: 'local' | 'multiplayer']
