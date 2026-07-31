@@ -167,8 +167,17 @@ export interface GameState {
   revealed: boolean
   impostorIndex: number
   chosenWord: string
+  impostorHint: string
   startPlayerIndex: number
   gameStarted: boolean
+}
+
+// Pick a subtle hint for the impostor: a different word from the same category.
+// It hints at the vibe/theme without giving away the actual word.
+export function pickImpostorHint(rng: () => number, words: string[], chosenWord: string): string {
+  const candidates = words.filter(w => w !== chosenWord)
+  if (candidates.length === 0) return ''
+  return pickDeterministic(rng, candidates)
 }
 
 export function createGameState(players: number, round: number, category: string): GameState {
@@ -186,6 +195,7 @@ export function createGameState(players: number, round: number, category: string
 
   const impostorIndex = numberFromRng(seededRandFromKey(roomKey + ':imp'), players)
   const chosenWord = pickDeterministic(seededRandFromKey(roomKey + ':word'), words)
+  const impostorHint = pickImpostorHint(seededRandFromKey(roomKey + ':hint'), words, chosenWord)
   const startPlayerIndex = numberFromRng(seededRandFromKey(roomKey + ':start'), players)
 
   return {
@@ -196,6 +206,7 @@ export function createGameState(players: number, round: number, category: string
     revealed: false,
     impostorIndex,
     chosenWord,
+    impostorHint,
     startPlayerIndex,
     gameStarted: false
   }

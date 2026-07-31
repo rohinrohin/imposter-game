@@ -208,6 +208,17 @@
                 🏃‍♂️ Avoid being caught!
               </p>
             </div>
+            <div v-if="gameState.impostorHint" class="bg-amber-900/30 backdrop-blur-sm border border-amber-500/40 rounded-2xl p-5 max-w-2xl mx-auto">
+              <p class="text-amber-200 text-sm md:text-base mb-2">
+                🔎 <strong>Secret hint</strong> — a word in the same vibe (not the answer):
+              </p>
+              <p class="text-2xl md:text-3xl font-bold text-amber-300 uppercase tracking-wide">
+                {{ gameState.impostorHint }}
+              </p>
+              <p class="text-amber-200/70 text-xs mt-2">
+                Use it to bluff — but don't say it out loud!
+              </p>
+            </div>
             <div class="bg-yellow-900/30 backdrop-blur-sm border border-yellow-500/30 rounded-2xl p-4 max-w-xl mx-auto">
               <p class="text-yellow-200 text-sm">
                 👑 Player {{ gameState.startPlayerIndex + 1 }} goes first in the discussion
@@ -327,8 +338,19 @@
                   🏃‍♂️ Avoid being caught!
                 </p>
               </div>
+              <div v-if="gameState.impostorHint" class="bg-amber-900/30 backdrop-blur-sm border border-amber-500/40 rounded-2xl p-5 max-w-2xl mx-auto">
+                <p class="text-amber-200 text-sm md:text-base mb-2">
+                  🔎 <strong>Secret hint</strong> — a word in the same vibe (not the answer):
+                </p>
+                <p class="text-2xl md:text-3xl font-bold text-amber-300 uppercase tracking-wide">
+                  {{ gameState.impostorHint }}
+                </p>
+                <p class="text-amber-200/70 text-xs mt-2">
+                  Use it to bluff — but don't say it out loud!
+                </p>
+              </div>
             </div>
-            
+
             <!-- Regular Player Reveal -->
             <div v-else class="space-y-8">
               <div class="text-6xl md:text-8xl mb-6">🎭</div>
@@ -397,9 +419,10 @@ import CardTitle from '@/components/ui/CardTitle.vue'
 import CardContent from '@/components/ui/CardContent.vue'
 import Button from '@/components/ui/Button.vue'
 import { ALL_CATEGORIES, createGameState, type GameState, numberFromRng, seededRandFromKey } from '@/lib/gameLogic'
-import { 
-  generateDeterministicGame, 
+import {
+  generateDeterministicGame,
   getDeterministicWord,
+  getDeterministicHint,
   type DeterministicGameConfig,
   type GameCodeData
 } from '@/lib/deterministicMultiplayer'
@@ -549,7 +572,8 @@ function generateDeterministicGameFromCode() {
     ...gameState.value,
     impostorIndex: deterministicGame.impostorIndex,
     startPlayerIndex: deterministicGame.startPlayerIndex,
-    chosenWord: getDeterministicWord(config.gameCode, config.category, config.round)
+    chosenWord: getDeterministicWord(config.gameCode, config.category, config.round),
+    impostorHint: getDeterministicHint(config.gameCode, config.category, config.round)
   }
 }
 
