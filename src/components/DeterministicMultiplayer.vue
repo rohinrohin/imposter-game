@@ -1,5 +1,5 @@
 <template>
-  <div class="fixed inset-0 bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-600 flex items-center justify-center z-50 p-4">
+  <div class="overlay-scroll bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-600">
     <div class="w-full max-w-2xl">
       <!-- Mode Selection -->
       <div v-if="step === 'mode'" class="text-center fade-in">

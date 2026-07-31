@@ -11,7 +11,7 @@
     <div class="mx-auto max-w-4xl space-y-6">
 
       <!-- Game Rules Modal (shown on first visit) -->
-      <div v-if="showRules" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+      <div v-if="showRules" class="overlay-scroll bg-black bg-opacity-50">
         <Card class="max-w-md w-full fade-in">
           <CardHeader>
             <CardTitle>🎯 How to Play</CardTitle>
@@ -45,7 +45,7 @@
 
 
       <!-- Full-Screen Player Selection (only shown when game is started and no active player) -->
-      <div v-if="gameState.gameStarted && gameState.activePlayer === null && multiplayerState.gameMode === 'local'" class="fixed inset-0 bg-gradient-to-br from-purple-600 via-blue-600 to-indigo-800 flex items-center justify-center z-50 p-4">
+      <div v-if="gameState.gameStarted && gameState.activePlayer === null && multiplayerState.gameMode === 'local'" class="overlay-scroll bg-gradient-to-br from-purple-600 via-blue-600 to-indigo-800">
         <div class="w-full max-w-6xl">
           <!-- Header -->
           <div class="text-center mb-8 fade-in">
@@ -112,7 +112,7 @@
       </div>
 
       <!-- Multiplayer Player Identity Selection -->
-      <div v-if="gameState.gameStarted && multiplayerState.gameMode === 'multiplayer' && multiplayerState.selectedPlayerIndex === null" class="fixed inset-0 bg-gradient-to-br from-purple-600 via-blue-600 to-indigo-800 flex items-center justify-center z-50 p-4">
+      <div v-if="gameState.gameStarted && multiplayerState.gameMode === 'multiplayer' && multiplayerState.selectedPlayerIndex === null" class="overlay-scroll bg-gradient-to-br from-purple-600 via-blue-600 to-indigo-800">
         <div class="w-full max-w-6xl">
           <!-- Header -->
           <div class="text-center mb-8 fade-in">
@@ -187,7 +187,7 @@
       </div>
 
       <!-- Multiplayer Personal Role Display -->
-      <div v-if="gameState.gameStarted && multiplayerState.gameMode === 'multiplayer' && multiplayerState.selectedPlayerIndex !== null" class="fixed inset-0 bg-gradient-to-br from-gray-900 via-gray-800 to-black flex items-center justify-center z-50 p-4">
+      <div v-if="gameState.gameStarted && multiplayerState.gameMode === 'multiplayer' && multiplayerState.selectedPlayerIndex !== null" class="overlay-scroll bg-gradient-to-br from-gray-900 via-gray-800 to-black">
         <div class="w-full max-w-4xl text-center fade-in">
           <!-- Show if player is impostor -->
           <div v-if="multiplayerState.selectedPlayerIndex === gameState.impostorIndex" class="space-y-8">
@@ -284,7 +284,7 @@
       </div>
 
       <!-- Full-Screen Word Reveal Panel -->
-      <div v-if="gameState.activePlayer !== null" class="fixed inset-0 bg-gradient-to-br from-gray-900 via-gray-800 to-black flex items-center justify-center z-50 p-4">
+      <div v-if="gameState.activePlayer !== null" class="overlay-scroll bg-gradient-to-br from-gray-900 via-gray-800 to-black">
         <div class="w-full max-w-4xl text-center">
           <div v-if="!gameState.revealed" class="fade-in">
             <!-- Privacy Screen -->
