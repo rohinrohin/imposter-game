@@ -3,126 +3,94 @@
 @tailwind utilities;
 
 @layer base {
-  :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
-    --primary: 221.2 83.2% 53.3%;
-    --primary-foreground: 210 40% 98%;
-    --secondary: 210 40% 96%;
-    --secondary-foreground: 222.2 84% 4.9%;
-    --muted: 210 40% 96%;
-    --muted-foreground: 215.4 16.3% 46.9%;
-    --accent: 210 40% 96%;
-    --accent-foreground: 222.2 84% 4.9%;
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 221.2 83.2% 53.3%;
-    --radius: 0.5rem;
-  }
-
-  .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-    --primary: 217.2 91.2% 59.8%;
-    --primary-foreground: 222.2 84% 4.9%;
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 224.3 76.3% 94.1%;
-  }
-}
-
-@layer base {
-  * {
-    @apply border-border;
+  html,
+  body,
+  #app {
+    min-height: 100%;
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-ink-950 text-snow font-sans antialiased;
+    background-image: radial-gradient(60% 55% at 50% -10%, rgba(52, 211, 153, 0.06), transparent 70%);
+    background-attachment: fixed;
+  }
+
+  ::selection {
+    background: rgba(52, 211, 153, 0.28);
+  }
+
+  h1,
+  h2,
+  h3 {
+    @apply font-display;
   }
 }
 
-/* Custom animations */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
+@layer components {
+  /* Buttons */
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 h-12 px-5 rounded-xl font-semibold
+      transition-all duration-150 active:scale-[0.97] focus:outline-none
+      focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-ink-950
+      disabled:opacity-40 disabled:pointer-events-none select-none;
+  }
+  .btn-primary {
+    @apply btn bg-mint text-ink-950 hover:bg-mint-600 focus-visible:ring-mint;
+  }
+  .btn-secondary {
+    @apply btn bg-ink-800 text-snow border border-ink-700 hover:border-ink-600 focus-visible:ring-ink-600;
+  }
+  .btn-ghost {
+    @apply btn text-fog hover:text-snow hover:bg-ink-800;
+  }
+  .btn-danger {
+    @apply btn bg-coral text-ink-950 hover:bg-coral-600 focus-visible:ring-coral;
   }
 
-  to {
-    opacity: 1;
-    transform: translateY(0);
+  .card {
+    @apply bg-ink-900 border border-ink-700 rounded-2xl;
+  }
+
+  .field {
+    @apply w-full h-12 px-4 rounded-xl bg-ink-800 border border-ink-700 text-snow
+      placeholder:text-fog focus:outline-none focus:border-mint transition-colors;
+  }
+
+  .label {
+    @apply text-xs font-semibold uppercase tracking-wider text-fog;
+  }
+
+  /*
+   * Full-screen overlay that is always scrollable. Uses margin:auto (not
+   * align-items:center) so content taller than the viewport stays reachable on
+   * iOS Safari. Respects the notch / home-indicator safe areas.
+   */
+  .overlay-scroll {
+    position: fixed;
+    inset: 0;
+    z-index: 50;
+    display: flex;
+    justify-content: center;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
+    padding: 1rem;
+    padding-top: max(1rem, env(safe-area-inset-top));
+    padding-bottom: max(1.25rem, env(safe-area-inset-bottom));
+    padding-left: max(1rem, env(safe-area-inset-left));
+    padding-right: max(1rem, env(safe-area-inset-right));
+  }
+
+  .overlay-scroll > * {
+    margin-top: auto;
+    margin-bottom: auto;
   }
 }
 
-@keyframes pulse {
-
-  0%,
-  100% {
-    transform: scale(1);
-  }
-
-  50% {
-    transform: scale(1.05);
-  }
-}
-
-.fade-in {
-  animation: fadeIn 0.3s ease-out;
-}
-
-.pulse-animation {
-  animation: pulse 0.6s ease-in-out;
-}
-
-/* Mobile optimizations */
-@media (max-width: 640px) {
-  .mobile-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-/*
- * Full-screen overlay that is always scrollable.
- * Uses margin:auto (not align-items:center) to center content, because a
- * flex-centered child that is taller than the viewport becomes unreachable
- * at the top on iOS Safari. margin:auto keeps the whole child scrollable.
- * Padding respects the notch / home-indicator safe areas.
- */
-.overlay-scroll {
-  position: fixed;
-  inset: 0;
-  z-index: 50;
-  display: flex;
-  justify-content: center;
-  overflow-y: auto;
-  overscroll-behavior: contain;
-  -webkit-overflow-scrolling: touch;
-  padding: 1rem;
-  padding-top: max(1rem, env(safe-area-inset-top));
-  padding-bottom: max(1rem, env(safe-area-inset-bottom));
+/* Page/scroll padding that clears the notch + home indicator for normal (non-overlay) pages. */
+.safe-page {
+  padding-top: max(1.25rem, env(safe-area-inset-top));
+  padding-bottom: max(1.5rem, env(safe-area-inset-bottom));
   padding-left: max(1rem, env(safe-area-inset-left));
   padding-right: max(1rem, env(safe-area-inset-right));
-}
-
-.overlay-scroll > * {
-  margin-top: auto;
-  margin-bottom: auto;
 }

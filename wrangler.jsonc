@@ -1,0 +1,29 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "imposter-game",
+
+  // Cloudflare account this Worker deploys to: "Rohinrohin@gmail.com's Account". Pinned so a
+  // multi-account login never prompts / targets the wrong account (the login can also see
+  // "Mail@karngyan.com's Account"). Not a secret.
+  "account_id": "cec5612170f2a2fbb96741bcaa29c36f",
+
+  "compatibility_date": "2025-09-02",
+  "main": "worker/index.ts",
+  "observability": { "enabled": true },
+
+  // Static SPA = the Vite build in ./dist. The Worker serves it via env.ASSETS, with SPA
+  // fallback so deep links (e.g. /imposter-game?room=WXYZ) resolve to index.html.
+  "assets": {
+    "directory": "./dist",
+    "binding": "ASSETS",
+    "not_found_handling": "single-page-application"
+  },
+
+  // One Durable Object per room code holds the live game state and the room's WebSockets.
+  "durable_objects": {
+    "bindings": [{ "name": "ROOMS", "class_name": "RoomDurableObject" }]
+  },
+
+  // SQLite-backed DO class → eligible for the Durable Objects free tier (no paid plan needed).
+  "migrations": [{ "tag": "v1", "new_sqlite_classes": ["RoomDurableObject"] }]
+}

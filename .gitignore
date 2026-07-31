@@ -173,3 +173,7 @@ out/
 
 # ngrok
 ngrok
+.gstack/
+
+# Cloudflare / Wrangler local state
+.wrangler/
