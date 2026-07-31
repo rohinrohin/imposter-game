@@ -1,4 +1,4 @@
-import { seededRandFromKey, numberFromRng, pickDeterministic, pickImpostorHint, createGameState, WORD_BANK, ALL_CATEGORIES, type GameState } from './gameLogic'
+import { seededRandFromKey, numberFromRng, pickDeterministic, getHintForWord, createGameState, type GameState } from './gameLogic'
 
 export interface DeterministicGameConfig {
   gameCode: string
@@ -108,22 +108,12 @@ export function getDeterministicWord(gameCode: string, category: string, round: 
 
 /**
  * Get the subtle impostor hint for a specific game configuration.
- * Returns a different word from the same category as the secret word —
- * enough to hint at the vibe without giving the answer away.
+ * The hint is a hand-authored clue tied directly to the secret word —
+ * enough to catch the vibe without giving the answer away.
  */
 export function getDeterministicHint(gameCode: string, category: string, round: number): string {
-  // Resolve the actual category (handles "Random") the same way getDeterministicWord does
-  let actualCategory = category
-  if (category === 'Random') {
-    const categoryRng = seededRandFromKey(`${gameCode}-cat-${round}`)
-    actualCategory = pickDeterministic(categoryRng, ALL_CATEGORIES)
-  }
-
-  const words = WORD_BANK[actualCategory] || WORD_BANK['Gen Z Vibes']
   const chosenWord = getDeterministicWord(gameCode, category, round)
-  const hintRng = seededRandFromKey(`${gameCode}-hint-${actualCategory}-${round}`)
-
-  return pickImpostorHint(hintRng, words, chosenWord)
+  return getHintForWord(chosenWord)
 }
 
 /**

@@ -210,13 +210,13 @@
             </div>
             <div v-if="gameState.impostorHint" class="bg-amber-900/30 backdrop-blur-sm border border-amber-500/40 rounded-2xl p-5 max-w-2xl mx-auto">
               <p class="text-amber-200 text-sm md:text-base mb-2">
-                🔎 <strong>Secret hint</strong> — a word in the same vibe (not the answer):
+                🔎 <strong>Your subtle hint</strong> — enough to bluff, not the answer:
               </p>
-              <p class="text-2xl md:text-3xl font-bold text-amber-300 uppercase tracking-wide">
-                {{ gameState.impostorHint }}
+              <p class="text-xl md:text-2xl font-semibold text-amber-300 italic leading-snug">
+                “{{ gameState.impostorHint }}”
               </p>
               <p class="text-amber-200/70 text-xs mt-2">
-                Use it to bluff — but don't say it out loud!
+                Play it cool — drop it into the conversation without getting caught!
               </p>
             </div>
             <div class="bg-yellow-900/30 backdrop-blur-sm border border-yellow-500/30 rounded-2xl p-4 max-w-xl mx-auto">
